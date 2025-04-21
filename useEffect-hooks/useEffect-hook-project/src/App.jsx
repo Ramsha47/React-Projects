@@ -5,21 +5,11 @@ import { AVAILABLE_PLACES } from './data.js';
 import Modal from './components/Modal.jsx';
 import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
-import sortPlaceByDistance from './loc.js';
 
 function App() {
   const modal = useRef();
   const selectedPlace = useRef();
   const [pickedPlaces, setPickedPlaces] = useState([]);
-
-  //get the location users website  this func will be called by th browser
-  navigator.geolocation.getCurrentPosition((position)=>{
-     sortPlaceByDistance(
-        AVAILABLE_PLACES,
-        position.coords.latitude,
-        position.coords.longitude
-    )
-  });
 
   function handleStartRemovePlace(id) {
     modal.current.open();
