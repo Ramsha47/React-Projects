@@ -5,18 +5,12 @@ function Modal ({open, children ,onClose }) {
   const dialog = useRef();
 
   console.log('[Modal Rendered] open:', open);
-  console.log('[Modal Rendered] dialog ref BEFORE useEffect:', dialog.current);
 
   useEffect(()=>{
-    console.log('[useEffect 🔁] Running useEffect');
-    console.log('[useEffect] open:', open);
-    console.log('[useEffect] dialog ref:', dialog.current);
       if(open){
-        console.log('[useEffect] calling showModal()');
         dialog.current.showModal()
       }
       else{
-      console.log('[useEffect] calling close()');
       dialog.current.close()
       }
     },[open]
@@ -24,12 +18,14 @@ function Modal ({open, children ,onClose }) {
 
   return createPortal(
     <dialog className="modal" ref={dialog}  onClose={onClose}>
-      {children}
+      {open ? children : null}    
     </dialog>,
     document.getElementById('modal')
   );
 };
 
+// SOLUTION TO PROBLEM 1 : open ? children(delet confirmation) : null this is the alternative solution to the above problem
+// Now this is only open when open is true check console of timer for verification
 export default Modal;
 
 
