@@ -7,6 +7,7 @@ import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
 import { sortPlacesByDistance } from './loc.js';
 import { useEffect } from 'react';
+import { useCallback } from 'react';
 
 function App() {
   const [modalIsOpen , setModalIsOpen] = useState(false)
@@ -65,13 +66,17 @@ function App() {
     }
     
   }
-
-  function handleRemovePlace() {
-    setPickedPlaces((prevPickedPlaces) =>
-      prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
-    );
-    setModalIsOpen(false)
-  }
+/*
+ wrap it in usecallback hook
+*/
+  const handleRemovePlace =useCallback(function handleRemovePlace() {
+      setPickedPlaces((prevPickedPlaces) =>
+        prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
+      );
+      setModalIsOpen(false)
+    },[]
+  )
+  
 
   return (
     <>

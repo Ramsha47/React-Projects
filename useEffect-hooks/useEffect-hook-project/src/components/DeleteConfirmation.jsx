@@ -1,13 +1,16 @@
-import { useEffect } from "react";
+import { useEffect  } from "react";
+import ProgressBar from "./ProgressBar";
+
+const TIMER = 3000
 
 export default function DeleteConfirmation({ onConfirm, onCancel }) {
-
+ 
   // Problem 1
   /* modal comp always renderd but its visibility is controlled by open prop
      this comp is always the part of the DOM and therefore this timer will actually be started 
      and set when the app components render for the first time
   */
-  console.log('Timer Setting ..',)
+  // console.log('Timer Setting ..',)
 
   /*
     Problem 2 solution : UseEffect bcz this is sideeffect not related to direct code
@@ -18,7 +21,7 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
   useEffect(()=>{
     const timer = setTimeout(()=>{
       onConfirm();  
-    },3000);
+    },TIMER);
     //run before this comp dismounts
     return ()=>{
      console.log('Cleaning up time')
@@ -27,6 +30,7 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
   },[])
 
   /*
+   PROBLEM 3 
    When you add funtion as dependecy there is a danger to create infinite loops 
    onConfirm is functional dependency have handleremovefucntion as object so every time
    this app comp executes handleRemove fun also recreates 
@@ -45,6 +49,7 @@ export default function DeleteConfirmation({ onConfirm, onCancel }) {
           Yes
         </button>
       </div>
+      <ProgressBar timer={TIMER}/>
     </div>
   );
 }

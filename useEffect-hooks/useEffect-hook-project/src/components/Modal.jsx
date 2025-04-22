@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 function Modal ({open, children ,onClose }) {
   const dialog = useRef();
 
-  console.log('[Modal Rendered] open:', open);
+  // console.log('[Modal Rendered] open:', open);
 
   useEffect(()=>{
       if(open){
