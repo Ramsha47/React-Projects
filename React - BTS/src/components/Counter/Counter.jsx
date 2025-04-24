@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState , memo } from 'react';
 
 import IconButton from '../UI/IconButton.jsx';
 import MinusIcon from '../UI/Icons/MinusIcon.jsx';
@@ -27,7 +27,7 @@ function isPrime(number) {
   return true;
 }
 
-export default function Counter({ initialCount }) {
+const Counter= memo(function Counter({ initialCount }) {
   log('<Counter /> rendered', 1);
   const initialCountIsPrime = isPrime(initialCount);
 
@@ -58,4 +58,18 @@ export default function Counter({ initialCount }) {
       </p>
     </section>
   );
-}
+})
+
+export default Counter
+
+// Memo remembers the rendered output and only re-renders if props change.
+// memo func will take a look at the props of you functional component and then compare it with the new
+// props recieve at this if both have same values memo will prevent this functional component to execute(avoiding)
+
+/*
+   We should dont overuse memo 
+   1. Use it as high up in the component  as possible(blocking a component execution will also block child components)
+   2. Checking props with memo() cost performance.
+   3. Dont use it on components where props will change frequently.
+
+*/

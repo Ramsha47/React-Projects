@@ -3,31 +3,23 @@ import { useState } from 'react';
 import Counter from './components/Counter/Counter.jsx';
 import Header from './components/Header.jsx';
 import { log } from './log.js';
+import ConfigureCounter from './components/Counter/ConfigureCounter.jsx';
 
 function App() {
   log('<App /> rendered');
 
-  const [enteredNumber, setEnteredNumber] = useState(0);
   const [chosenCount, setChosenCount] = useState(0);
 
-  function handleChange(event) {
-    setEnteredNumber(+event.target.value);
+  function handleSetCount(newCount){
+    setChosenCount(newCount)
   }
 
-  function handleSetClick() {
-    setChosenCount(enteredNumber);
-    setEnteredNumber(0);
-  }
-
+  // state chnges and re execution of child component cannot trigger the execution of parent component
   return (
     <>
       <Header />
       <main>
-        <section id="configure-counter">
-          <h2>Set Counter</h2>
-          <input type="number" onChange={handleChange} value={enteredNumber} />
-          <button onClick={handleSetClick}>Set</button>
-        </section>
+        <ConfigureCounter onSet={handleSetCount} />  
         <Counter initialCount={chosenCount} />
       </main>
     </>
@@ -35,3 +27,16 @@ function App() {
 }
 
 export default App;
+
+//problematic use case here for optimization
+
+/*
+  When I'll enter a number in an input feild a bunch of components  executed why is that happening here?
+  beacuse this input feild is directly lies in the App component and I have onChange={handleChange} on input feild
+  and therefore on every key stroke some states changes 
+
+  There are two approaches to this solution
+  1. First one is using memo fucntion to wrap around that will prevent 
+     uneccessary component function execution
+  2. Second one is clever component composition (sepration of component)
+*/
