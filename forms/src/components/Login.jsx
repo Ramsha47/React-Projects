@@ -1,6 +1,12 @@
 export default function Login() {
+
+  function handleSubmit(event){
+    event.preventDefault();  // preventing the default browser behaviour
+    console.log("submitted");
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}> 
       <h2>Login</h2>
 
       <div className="control-row">
