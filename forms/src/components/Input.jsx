@@ -1,17 +1,13 @@
-export default function Input(){
+export default function Input({label ,id ,error, ...props}){
     return (
         <div className="control no-margin">
-        <label htmlFor="email">Email</label>
+        <label htmlFor={id}>{label}</label>
         <input 
-          id="email"
-          type="email" 
-          name="email" 
-          onBlur={()=>handleInputBlur('email')}
-          onChange={(event)=>handleInputChange('email',event.target.value)}
-          value={enteredValues.email}
+          id={id}
+          {...props}
          />
          <div className="control-error">
-           {emailIsInvalid && <p>Please enter a valid email address</p>}
+           {error && <p>{error}</p>}
          </div>
       </div>
     );
