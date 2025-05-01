@@ -1,0 +1,3 @@
+where should we executed aync tasks and side effects ?? ( we cant do it in reducers )
+
+Ans:  Directly into the component  or may be inside the  action creators
