@@ -10,7 +10,7 @@ export default AuthenticationPage;
 // auth
 export async function action({request}){
   const searchParams= new URL(request.url).searchParams
-  searchParams.get('mode') || 'login'
+  const mode = searchParams.get('mode') || 'login'
   
   if(mode!=='login' && mode!== 'signup'){
     throw json({message: "unsupported mode"},{status:422})
@@ -19,7 +19,7 @@ export async function action({request}){
   const data = await request.formData();
   const authData = {
     email: data.get('email'),
-    password: password.get('password')
+    password: data.get('password')
   }
 
   const response = await fetch('http://localhost:8080/' + mode,{
@@ -41,3 +41,4 @@ export async function action({request}){
   //soon manage that token
   return redirect('/')
 }
+//  we will work in that file 
