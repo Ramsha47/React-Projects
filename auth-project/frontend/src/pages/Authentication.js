@@ -37,8 +37,13 @@ export async function action({request}){
   if(!response.ok){
     throw json({message:"could not authenticate user"},{status:500})
   }
-
   //soon manage that token
+
+  const resData = await response.json()
+  const token = resData.token   // the ques is where do we store it
+  //we can store it in localstorage which is browser api
+  localStorage.setItem('token', token)
+  
   return redirect('/')
 }
 //  we will work in that file 
